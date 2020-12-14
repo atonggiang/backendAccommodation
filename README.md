@@ -12,27 +12,32 @@ First you need to create a virtual machine
 ```bash
 source> cd backend
 source/backend> py -m venv venv
-source/backend> cd venv/Scipts
+source/backend> cd venv/Scripts
 source/backend/venv/Scripts> activate
 ```
 
 Then you install django and other modules
+Remember to activate virtual machine
 
 ```bash
-source/backend> pip install -r requirements.txt
+(venv)source/backend> pip install -r requirements.txt
 ```
 
 ## Migrate the database
 
+Remember to activate virtual machine
+
 ```bash
-source/backend> py manage.py makemigations
-source/backend> py manage.py migrate
+(venv)source/backend> py manage.py makemigations
+(venv)source/backend> py manage.py migrate
 ```
 
 ## Get the Server running (at port 8000)
 
+Remember to activate virtual machine
+
 ```bash
-source/backend> py manage.py runserver
+(venv)source/backend> py manage.py runserver
 ```
 
 ## Contributing
