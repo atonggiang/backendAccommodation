@@ -5,6 +5,7 @@ This is backend providing API that can process user register, login, creating po
 ## Installation
 
 We assume that you have Python and Pip in your machine. If not then go install them first.
+
 This installation is for Window, other platform may have slightly different syntax.
 
 First you need to create a virtual machine
@@ -22,7 +23,8 @@ source/backend/venv/Scripts> activate
 ```
 
 Then you install django and other modules
-Remember to activate virtual machine
+
+Remember to activate virtual machine.
 
 ```bash
 (venv)source/backend> pip install -r requirements.txt
