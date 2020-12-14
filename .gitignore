@@ -1,0 +1,5 @@
+###  django ignore configuration files  ###
+venv
+__pycache__/
+migrations
+db.sqlite3
