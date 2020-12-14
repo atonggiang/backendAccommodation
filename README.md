@@ -13,6 +13,11 @@ First you need to create a virtual machine
 source> cd backend
 source/backend> py -m venv venv
 source/backend> cd venv/Scripts
+```
+
+Activate virtual machine (IMPORTANT!!)
+
+```bash
 source/backend/venv/Scripts> activate
 ```
 
