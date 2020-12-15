@@ -13,3 +13,19 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = models.Review.objects.all()
+    serializer_class = serializers.ReviewSerializer
+
+class LikeViewSet(viewsets.ModelViewSet):
+    queryset = models.Like.objects.all()
+    serializer_class = serializers.LikeSerializer
+
+class BookmarkViewSet(viewsets.ModelViewSet):
+    queryset = models.Bookmark.objects.all()
+    serializer_class = serializers.BookmarkSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = models.Comment.objects.all()
+    serializer_class = serializers.CommentSerializer
