@@ -10,6 +10,7 @@ router.register('reviewlist', views.ReviewViewSet, 'review')
 router.register('likelist', views.LikeViewSet, 'like')
 router.register('bookmarklist', views.BookmarkViewSet, 'bookmark')
 router.register('commentlist', views.CommentViewSet, 'comment')
+router.register('reportlist', views.ReportViewSet, 'report')
 
 urlpatterns = [
     path('', include(router.urls)),

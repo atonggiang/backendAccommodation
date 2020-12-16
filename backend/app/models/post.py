@@ -22,8 +22,8 @@ class Post(models.Model):
         (MINIROOM, 'Miniroom'),
     ]
     room_type = models.CharField(max_length=2, choices=ROOM_TYPE, default=STUDIO)
-    number_of_room = models.PositiveIntegerField(default=13)
-    price_per_month = models.DecimalField(max_digits=5, decimal_places=2, default=25.99)
+    number_of_room = models.PositiveIntegerField(default=3)
+    price_per_month = models.DecimalField(verbose_name='Price to pay per month', max_digits=5, decimal_places=2, default=25.99)
     area = models.PositiveIntegerField(default=100)
     SHARED = 'S'
     PRIVATE = 'P'
@@ -43,9 +43,9 @@ class Post(models.Model):
     air_conditional = models.BooleanField(default=False)
     balcony = models.BooleanField(default=False)
 
-    #TODO electricity bill go here
+    bill_usage_per_hour = models.DecimalField(verbose_name='Water & Electricity Bill Per Hour', max_digits=5, decimal_places=2, default=19.99)
 
-    optional_furniture = models.CharField(max_length=255, default='specify here')
+    optional_furniture = models.CharField(verbose_name='More Option Furniture', max_length=255, default='specify here')
 
     #TODO picture fields go here
 
@@ -60,11 +60,6 @@ class Post(models.Model):
         (YEAR, 'A Year'),
     ]
     display_duration_type = models.CharField(max_length=2, choices=DISPLAY_DURATION_TYPE, default=WEEK)
-    display_duration_time = models.IntegerField(default=1)
-
-    
-
-    #TODO duration price code go here
 
     PENDING = 'P'
     APPROVED = 'A'
@@ -87,3 +82,35 @@ class Post(models.Model):
         '''
         db_table = "post"
         ordering = ['-date_posted',]
+    def get_price_owner_pay(self):
+        WEEK_PRICE = 12.99
+        MONTH_PRICE = 9.99
+        QUATER_PRICE = 5.99
+        YEAR_PRICE = 2.99
+        if self.display_duration_type == 'W':
+            return WEEK_PRICE
+        elif self.display_duration_type == 'M':
+            return MONTH_PRICE
+        elif self.display_duration_type == 'Q':
+            return QUATER_PRICE
+        else :
+            return YEAR_PRICE
+    def get_bookmarks_count(self):
+        return self.bookmarks_post.count()
+    def get_likes_count(self):
+        return self.likes_post.count()
+    def get_verified_comments_count(self):
+        return self.comments_post.filter(is_verified=True).count()
+    def get_verified_comments(self):    
+        return self.comments_post.filter(is_verified=True)
+    def get_verified_reviews_count(self):
+        return self.reviews_post.filter(is_verified=True).count()
+    def get_verified_reviews(self):    
+        return self.reviews_post.filter(is_verified=True)
+    def get_post_location(self):
+        address = '{address_number}, {address_street} Str, {address_district} District, {address_city} City'.format(
+            address_number=self.address_number, 
+            address_street=self.address_street, 
+            address_district=self.address_district, 
+            address_city=self.address_city)
+        return address

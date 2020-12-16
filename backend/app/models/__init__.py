@@ -5,3 +5,4 @@ from .review import Review
 from .like import Like
 from .bookmark import Bookmark
 from .comment import Comment
+from .report import Report

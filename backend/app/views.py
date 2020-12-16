@@ -29,3 +29,7 @@ class BookmarkViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
+
+class ReportViewSet(viewsets.ModelViewSet):
+    queryset = models.Report.objects.all()
+    serializer_class = serializers.ReportSerializer

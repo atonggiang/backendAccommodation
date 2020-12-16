@@ -1,13 +1,12 @@
 from rest_framework import serializers
-from ..models import Review
+from ..models import Report
 
-class ReviewSerializer(serializers.ModelSerializer):
+class ReportSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source='user.profile.name', read_only=True)
     class Meta:
-        model = Review
+        model = Report
         exclude = []
         extra_kwargs = {
             'user': {'write_only': True},
             'post': {'write_only': True},
-            'is_verified': {'write_only': True},
         }

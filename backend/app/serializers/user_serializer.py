@@ -8,7 +8,9 @@ class UserSerializer(serializers.ModelSerializer):
             'is_active', 'is_staff', 'is_superuser', 'last_login', 'groups', 'user_permissions',
         ]
         extra_kwargs = {
-            'date_joined': {'read_only': True}
+            'date_joined': {'read_only': True},
+            'user': {'write_only': True},
+            'post': {'write_only': True},
         }
     #create user using custom save
     # def create(self, validated_data):
