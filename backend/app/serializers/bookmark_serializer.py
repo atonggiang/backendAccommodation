@@ -3,7 +3,7 @@ from ..models import Bookmark
 
 class BookmarkSerializer(serializers.ModelSerializer):
     owner = serializers.CharField(source='user.profile.name', read_only=True)
-    post_location = serializers.CharField(source='post.get_post_location', read_only=True)
+    location = serializers.CharField(source='post.get_location', read_only=True)
     post_link = serializers.HyperlinkedRelatedField(
         source='post',
         read_only=True,

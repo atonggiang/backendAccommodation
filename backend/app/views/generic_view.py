@@ -1,6 +1,10 @@
 from rest_framework import viewsets
-from .import models 
-from .import serializers 
+from .. import models 
+from .. import serializers 
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = models.Post.objects.all()
@@ -33,3 +37,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = models.Report.objects.all()
     serializer_class = serializers.ReportSerializer
+
+class PictureViewSet(viewsets.ModelViewSet):
+    queryset = models.Picture.objects.all()
+    serializer_class = serializers.PictureSerializer

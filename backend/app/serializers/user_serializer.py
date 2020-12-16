@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from ..models import User
+from .profile_serializer import ProfileSerializer
 
 class UserSerializer(serializers.ModelSerializer):
+    user_profile = ProfileSerializer(source='profile', read_only=True)
     class Meta:
         model = User
         exclude = [
