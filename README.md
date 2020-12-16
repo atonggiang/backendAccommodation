@@ -27,7 +27,7 @@ Then you install django and other modules
 Remember to activate virtual machine.
 
 ```bash
-(venv)source/backend> pip install -r requirements.txt
+(venv) source/backend> pip install -r requirements.txt
 ```
 
 ## Migrate the database
@@ -35,8 +35,8 @@ Remember to activate virtual machine.
 Remember to activate virtual machine
 
 ```bash
-(venv)source/backend> py manage.py makemigations
-(venv)source/backend> py manage.py migrate
+(venv) source/backend> py manage.py makemigrations
+(venv) source/backend> py manage.py migrate
 ```
 
 ## Get the Server running (at port 8000)
@@ -44,7 +44,7 @@ Remember to activate virtual machine
 Remember to activate virtual machine
 
 ```bash
-(venv)source/backend> py manage.py runserver
+(venv) source/backend> py manage.py runserver
 ```
 
 ## Contributing
