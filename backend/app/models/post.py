@@ -2,51 +2,21 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 import datetime
+from .. import constants
 from . import Room
-from ..managers import PostQuerySetByStatus
-
-#constants for time
-WEEK = 'W'
-MONTH = 'M'
-QUATER = 'Q'
-YEAR = 'Y'
-DISPLAY_DURATION_TYPE = [
-    (WEEK, 'A Week'),
-    (MONTH, 'A Month'),
-    (QUATER, 'A Quater'),
-    (YEAR, 'A Year'),
-]
-#constants for state
-PENDING = 'P'
-APPROVED = 'A'
-DECLINED = 'D'
-VERIFY_STATUS = [
-    (PENDING, 'Pending'),
-    (APPROVED, 'Approved'),
-    (DECLINED, 'Declined'),
-]
-#constants for price owner pay
-WEEK_PRICE = 12.99
-MONTH_PRICE = 9.99
-QUATER_PRICE = 5.99
-YEAR_PRICE = 2.99
+from .. import managers
 
 # Create your models here.
 class Post(models.Model):
-    room = models.OneToOneField(Room, on_delete=models.CASCADE, null=True, verbose_name='Room Post', related_name='post')
+    room = models.OneToOneField(Room, on_delete=models.CASCADE, verbose_name='Room Post', related_name='post')
     date_posted = models.DateTimeField(verbose_name='Date Posted', null=True)
-    
-    display_duration_type = models.CharField(verbose_name='Display Duration', max_length=2, choices=DISPLAY_DURATION_TYPE, default=WEEK)
-    
-    verify_status = models.CharField(verbose_name='Verify Status', max_length=1, choices=VERIFY_STATUS, default=PENDING)
+    display_duration_type = models.CharField(verbose_name='Display Duration', max_length=2, choices=constants.DISPLAY_DURATION_TYPE, default=constants.WEEK)
+    verify_status = models.CharField(verbose_name='Verify Status', max_length=1, choices=constants.VERIFY_STATUS, default=constants.PENDING)
     is_available = models.BooleanField(verbose_name='Is Available', default=True)
-
     objects = models.Manager()
-    queryset_status = PostQuerySetByStatus.as_manager()
-
-    # def __str__(self):
-    #     return self.user.username
-    
+    pending = managers.PendingPost()
+    approved = managers.ApprovedPost()
+    declined = managers.DeclinedPost()
     class Meta:
         '''
         to set table name in database
@@ -54,14 +24,14 @@ class Post(models.Model):
         db_table = "post"
         ordering = ['-date_posted',]
     def get_price_owner_pay(self):
-        if self.display_duration_type == WEEK:
-            return WEEK_PRICE
-        elif self.display_duration_type == MONTH:
+        if self.display_duration_type == constants.WEEK:
+            return constants.WEEK_PRICE
+        elif self.display_duration_type == constants.MONTH:
             return MONTH_PRICE
-        elif self.display_duration_type == QUATER:
-            return QUATER_PRICE
+        elif self.display_duration_type == constants.QUATER:
+            return constants.QUATER_PRICE
         else :
-            return YEAR_PRICE
+            return constants.YEAR_PRICE
     def get_bookmarks_count(self):
         return self.bookmarks_post.count()
     def get_likes_count(self):
@@ -81,20 +51,21 @@ class Post(models.Model):
             address_district=self.room.address_district, 
             address_city=self.room.address_city)
         return address
+    def set_post_pending(self):
+        self.verify_status = constants.PENDING
+        self.save(update_fields=['verify_status'])
     def approve_post_status(self):
-        self.verify_status = APPROVED
+        self.verify_status = constants.APPROVED
         self.date_posted = timezone.now() #then restart the date
         self.save(update_fields=['verify_status', 'date_posted'])
     def is_due(self):
+        if self.verify_status != constants.APPROVED:
+            return
         day_delta = 7
-        if self.display_duration_type == MONTH:
+        if self.display_duration_type == constants.MONTH:
             day_delta = 30
-        elif self.display_duration_type == QUATER:
+        elif self.display_duration_type == constants.QUATER:
             day_delta = 120
         else :
             day_delta = 365
         return self.date_posted <= timezone.localtime(timezone.now()) - datetime.timedelta(days=day_delta)
-    def check_verify_status(self):
-        if self.is_due():
-            self.verify_status = PENDING
-            self.save(update_fields=['verify_status'])

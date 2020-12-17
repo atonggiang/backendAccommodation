@@ -1,24 +1,24 @@
 from django.db import models
+from .. import constants
 
-class PostQuerySetByStatus(models.QuerySet):
-    def pending(self):
-        return self.filter(verify_status='P')
-
-    def approved(self):
-        return self.filter(verify_status='A')
-
-    def declined(self):
-        return self.filter(verify_status='A')
-
-class PostMangager(models.Model):
+class PendingPost(models.Manager):
     def get_queryset(self):
-        return PostQuerySetByStatus(self.model, using=self._db)
+        return super().get_queryset().filter(verify_status=constants.PENDING)
 
-    def pending(self):
-        return self.get_queryset().pending()
+class ApprovedPost(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(verify_status=constants.APPROVED)
+    def approve_all(self):
+        posts = self.get_queryset()
+        for post in posts:
+            post.approve_post_status()
+    def in_effect(self):
+        posts =  self.get_queryset()
+        result = []
+        for post in posts:
+            result.append(post) if not post.is_due() else post.set_post_pending()
+        return result
 
-    def approved(self):
-        return self.get_queryset().approved()
-
-    def declined(self):
-        return self.get_queryset().declined()
+class DeclinedPost(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(verify_status=constants.DECLINED)
