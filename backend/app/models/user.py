@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .. import managers
+from .. import constants
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(verbose_name='Username', max_length=255, default='Nguyen Van A', unique=True)
@@ -11,15 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(verbose_name='Is Superuser', default=False)
     last_login = models.DateTimeField(verbose_name='Last Login', null=True, blank=True)
     date_joined = models.DateTimeField(verbose_name='Joined Since', auto_now_add=True)
-    MODERATOR = 'M'
-    OWNER = 'O'
-    RENTER = 'R'
-    ROLE_CHOICES = (
-        (MODERATOR, 'Moderator'),
-        (OWNER, 'Owner'),
-        (RENTER, 'Renter'),
-    )
-    role = models.CharField(verbose_name='Role of User', max_length=1, default=RENTER, choices=ROLE_CHOICES)
+    role = models.CharField(verbose_name='Role of User', max_length=1, default=constants.RENTER, choices=constants.ROLE_CHOICES)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
     objects = managers.UserManager()

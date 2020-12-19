@@ -1,3 +1,11 @@
+MODERATOR = 'M'
+OWNER = 'O'
+RENTER = 'R'
+ROLE_CHOICES = (
+    (MODERATOR, 'Moderator'),
+    (OWNER, 'Owner'),
+    (RENTER, 'Renter'),
+)
 HOUSE = 'H'
 STUDIO = 'S'
 APARTMENT = 'A'

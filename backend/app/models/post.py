@@ -9,10 +9,9 @@ from .. import managers
 # Create your models here.
 class Post(models.Model):
     room = models.OneToOneField(Room, on_delete=models.CASCADE, verbose_name='Room Post', related_name='post')
-    date_posted = models.DateTimeField(verbose_name='Date Posted', null=True)
+    date_posted = models.DateTimeField(verbose_name='Date Posted', auto_now_add=True)
     display_duration_type = models.CharField(verbose_name='Display Duration', max_length=2, choices=constants.DISPLAY_DURATION_TYPE, default=constants.WEEK)
     verify_status = models.CharField(verbose_name='Verify Status', max_length=1, choices=constants.VERIFY_STATUS, default=constants.PENDING)
-    is_available = models.BooleanField(verbose_name='Is Available', default=True)
     objects = models.Manager()
     pending = managers.PendingPost()
     approved = managers.ApprovedPost()
@@ -27,7 +26,7 @@ class Post(models.Model):
         if self.display_duration_type == constants.WEEK:
             return constants.WEEK_PRICE
         elif self.display_duration_type == constants.MONTH:
-            return MONTH_PRICE
+            return constants.MONTH_PRICE
         elif self.display_duration_type == constants.QUATER:
             return constants.QUATER_PRICE
         else :

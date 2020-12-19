@@ -4,7 +4,7 @@ from .. import constants
 
 # Create your models here.
 class Room(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rooms')
     address_number = models.CharField(verbose_name='House Number', max_length=4, blank=True, default=14)
     address_street = models.CharField(verbose_name='Street Address', max_length=100, blank=True, default='Vuong Thua Vu')
     address_district = models.CharField(verbose_name='District Address', max_length=100, blank=True, default='Thanh Xuan')
@@ -19,6 +19,7 @@ class Room(models.Model):
     balcony = models.BooleanField(default=False)
     water_electricity_bill_per_week = models.DecimalField(verbose_name='Bill for Water & Electricity per Week' ,max_digits=5, decimal_places=2, default=9.99)
     optional_furniture = models.CharField(verbose_name='More Option Furniture', max_length=255, default='specify here')
+    is_available = models.BooleanField(verbose_name='Is Available', default=True)
     class Meta:
         '''
         to set table name in database

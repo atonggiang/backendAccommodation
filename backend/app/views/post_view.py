@@ -4,6 +4,7 @@ from .. import models
 from .. import serializers
 from ..filters import PostFilter
 
+
 class PendingPostViewSet(viewsets.ModelViewSet):
     queryset = models.Post.pending.all()
     serializer_class = serializers.PostSerializer
@@ -17,3 +18,4 @@ class ApprovedPostViewSet(viewsets.ModelViewSet):
 class DeclinedPostViewSet(viewsets.ModelViewSet):
     queryset = models.Post.declined.all()
     serializer_class = serializers.PostSerializer
+
