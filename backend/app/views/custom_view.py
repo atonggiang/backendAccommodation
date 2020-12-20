@@ -288,3 +288,13 @@ def get_user_bookmarks_action(request, *args, **kwargs):
     bookmarks = models.Bookmark.objects.filter(user=request.user.id)
     bookmarks_json = serializers.BookmarkSerializer(bookmarks, many=True, context={'request':request})
     return Response(bookmarks_json.data)
+
+@api_view(['POST'])
+def login_authentication(request, *args, **kwargs):
+    result = serializers.LoginSerializer(data=request.data)
+    result.is_valid(raise_exception=True)
+    response = {
+        'username': result.data['username'],
+        'role' : result.data['role'],
+    }
+    return Response(response, status=status.HTTP_200_OK)

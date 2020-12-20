@@ -1,6 +1,6 @@
 from .room_serializer import RoomSerializer
 from .post_serializer import PostSerializer
-from .user_serializer import UserSerializer
+from .user_serializer import UserSerializer, LoginSerializer
 from .profile_serializer import ProfileSerializer
 from .review_serializer import ReviewSerializer
 from .like_serializer import LikeSerializer
