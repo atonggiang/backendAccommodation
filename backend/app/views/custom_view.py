@@ -261,16 +261,16 @@ def get_user_rooms_action(request, *args, **kwargs):
 def get_user_pending_posts_action(request, *args, **kwargs):
     '''
     '''
-    posts = models.Post.pending.filter(user=request.user.id)
-    posts_json = serializers.RoomSerializer(posts, many=True, context={'request':request})
+    posts = models.Post.pending.filter(room__user=request.user.id)
+    posts_json = serializers.PostSerializer(posts, many=True, context={'request':request})
     return Response(posts_json.data)
 
 @api_view(['GET'])
 def get_user_approved_posts_action(request, *args, **kwargs):
     '''
     '''
-    posts = models.Post.approved.filter(user=request.user.id)
-    posts_json = serializers.RoomSerializer(posts, many=True, context={'request':request})
+    posts = models.Post.approved.filter(room__user=request.user.id)
+    posts_json = serializers.PostSerializer(posts, many=True, context={'request':request})
     return Response(posts_json.data)
 
 @api_view(['GET'])
