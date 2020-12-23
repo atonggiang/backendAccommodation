@@ -9,6 +9,7 @@ class Room(models.Model):
     address_street = models.CharField(verbose_name='Street Address', max_length=100, blank=True, default='Vuong Thua Vu')
     address_district = models.CharField(verbose_name='District Address', max_length=100, blank=True, default='Thanh Xuan')
     address_city = models.CharField(verbose_name='City Address', max_length=100, blank=True, default='Ha Noi')
+    room_description = models.TextField(blank=True)
     room_type = models.CharField(max_length=2, choices=constants.ROOM_TYPE, default=constants.STUDIO)
     number_of_room = models.PositiveIntegerField(default=3)
     area = models.PositiveIntegerField(default=100)
