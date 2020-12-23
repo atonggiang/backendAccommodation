@@ -20,6 +20,7 @@ class Room(models.Model):
     water_electricity_bill_per_week = models.DecimalField(verbose_name='Bill for Water & Electricity per Week' ,max_digits=5, decimal_places=2, default=9.99)
     optional_furniture = models.CharField(verbose_name='More Option Furniture', max_length=255, default='specify here')
     is_available = models.BooleanField(verbose_name='Is Available', default=True)
+    price_renter_to_pay = models.DecimalField(verbose_name='Price renter to pay per week' ,max_digits=5, decimal_places=2, default=19.99)
     class Meta:
         '''
         to set table name in database
