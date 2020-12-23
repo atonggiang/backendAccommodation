@@ -34,7 +34,7 @@ def get_approved_posts_in_effect_action(request, *args, **kwargs):
     body: none
     '''
     posts = models.Post.approved.in_effect()
-    post_json = serializers.PostSerializer(posts, many=True)
+    post_json = serializers.PostSerializer(posts, many=True, context={'request':request})
     return Response(post_json.data)
 
 @api_view(['GET'])
@@ -44,7 +44,7 @@ def get_approved_posts_not_in_effect_action(request, *args, **kwargs):
     body: none
     '''
     posts = models.Post.approved.not_in_effect()
-    post_json = serializers.PostSerializer(posts, many=True)
+    post_json = serializers.PostSerializer(posts, many=True, context={'request':request})
     return Response(post_json.data)
 
 @api_view(['POST'])
