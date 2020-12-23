@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from ..models import Room
+from .picture_serializer import PictureSerializer
 
 class RoomSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source='user.profile.name', read_only=True)
-    pictures_included = serializers.HyperlinkedRelatedField(
+    pictures_included = PictureSerializer(
         many=True, 
         source='pics', 
         read_only=True,
-        view_name='picture-detail'
     )
     class Meta:
         model = Room
