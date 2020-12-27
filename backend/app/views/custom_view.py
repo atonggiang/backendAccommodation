@@ -37,6 +37,12 @@ def get_approved_posts_in_effect_action(request, *args, **kwargs):
     post_json = serializers.PostSerializer(posts, many=True, context={'request':request})
     return Response(post_json.data)
 
+@api_view(['PATCH'])
+def set_post_pending_action(request, pk, *args, **kwargs):
+    post = get_object_or_404(models.Post.pending.all(), pk=pk)
+    post.set_post_pending()
+    return Response(status=status.HTTP_202_ACCEPTED) 
+
 @api_view(['GET'])
 def get_approved_posts_not_in_effect_action(request, *args, **kwargs):
     '''

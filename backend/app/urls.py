@@ -37,6 +37,7 @@ urlpatterns = [
     path('approve_all_pending_posts_action-api/', views.approve_all_pending_posts_action),
     path('get_approved_posts_in_effect_action-api/', views.get_approved_posts_in_effect_action),
     path('get_approved_posts_not_in_effect_action-api/', views.get_approved_posts_not_in_effect_action),
+    path('set_post_pending_action-api/', views.set_post_pending_action),
     path('create_room_action-api/', views.create_room_action),
     path('edit_room_action-api/<int:pk>/', views.edit_room_action),
     path('create_post_action-api/<int:pk>/', views.create_post_action),
