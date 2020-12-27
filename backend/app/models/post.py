@@ -43,6 +43,16 @@ class Post(models.Model):
         return self.reviews_post.filter(is_verified=True).count()
     def get_verified_reviews(self):    
         return self.reviews_post.filter(is_verified=True)
+
+    def get_comments_count(self):
+        return self.comments_post.filter(is_verified=True).count()
+    def get_comments(self):    
+        return self.comments_post.all()
+    def get_reviews_count(self):
+        return self.reviews_post.count()
+    def get_reviews(self):    
+        return self.reviews_post.all()
+
     def get_location(self):
         address = '{address_number}, {address_street} Str, {address_district} District, {address_city} City'.format(
             address_number=self.room.address_number, 
