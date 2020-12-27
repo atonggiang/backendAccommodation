@@ -55,5 +55,6 @@ urlpatterns = [
     path('get_user_approved_posts_action-api/', views.get_user_approved_posts_action),
     path('get_user_profile_action-api/', views.get_user_profile_action),
     path('get_user_bookmarks_action-api/', views.get_user_bookmarks_action),
+    path('get_post_like_count_action-api/<int:pk>/', views.get_post_like_count_action),
     path('login_authentication-api/', views.login_authentication),
 ]

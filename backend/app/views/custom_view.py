@@ -211,6 +211,14 @@ def create_comment_post_action(request, pk, *args, **kwargs):
         return Response(comment_json.data, status=status.HTTP_201_CREATED)
     return Response(comment_json.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_post_like_count_action(request, pk, *qrgs, **kwargs):
+    post = get_object_or_404(models.Post.objects.all(), pk=pk)
+    data = {
+        "like_count" : post.get_likes_count()
+    }
+    return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def create_review_post_action(request, pk, *args, **kwargs):
     '''
